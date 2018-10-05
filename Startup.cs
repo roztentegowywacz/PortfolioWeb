@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,16 @@ namespace PortfolioWeb
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(_config["DefaultConnection"]));
 
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+            })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddTransient<IRepository, Repository>();
             
             services.AddMvc();
@@ -36,7 +47,9 @@ namespace PortfolioWeb
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
+            app.UseAuthentication();
+            
             app.UseMvcWithDefaultRoute();
         }
     }

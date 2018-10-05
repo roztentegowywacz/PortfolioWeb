@@ -17,24 +17,41 @@ namespace PortfolioWeb.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var portfolioProjects = _repo.GetAllPortfolioProjects();
+            return View(portfolioProjects);
         }
 
-        public IActionResult Project()
+        public IActionResult Project(int id)
         {
-            return View();
+            var portfolioProject = _repo.GetPortfolioProject(id);
+            return View(portfolioProject);
         }
 
         [HttpGet]
-        public IActionResult Edit()
-        {
-            return View(new PortfolioProject());
+        public IActionResult Edit(int? id)
+        { 
+            if (id == null)
+            {
+                return View(new PortfolioProject());
+            }
+            else
+            {
+                var portfolioProject = _repo.GetPortfolioProject((int) id);
+                return View(portfolioProject);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(PortfolioProject portfolioProject)
         {
-            _repo.AddPortfolioProject(portfolioProject);
+            if (portfolioProject.Id > 0)
+            {
+                _repo.UpdatePortfolioProject(portfolioProject);
+            }
+            else
+            {
+                _repo.AddPortfolioProject(portfolioProject);
+            }
 
             if (await _repo.SaveChangesAsync())
             {
@@ -45,6 +62,14 @@ namespace PortfolioWeb.Controllers
                 return View(portfolioProject);
             }
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Remove(int id)
+        { 
+            _repo.RemovePortfolioProject(id);
+            await _repo.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
     }
 }
