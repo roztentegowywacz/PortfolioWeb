@@ -1,0 +1,23 @@
+@model PortfolioProject
+
+@{
+
+}
+
+<div>
+    <form asp-controller="Portfolio" asp-action="Edit" method="POST">
+        <div>
+            <label>Title</label>
+            <input asp-for="Title" />
+        </div>
+        <div>
+            <label>Summary</label>
+            <input asp-for="Summary" />
+        </div>
+        <div>
+            <label>Body</label>
+            <input asp-for="Body" />
+        </div>
+        <input type="submit" value="Submit" />
+    </form>
+</div>

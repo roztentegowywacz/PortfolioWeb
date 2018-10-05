@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Controllers
 {
@@ -12,6 +13,18 @@ namespace PortfolioWeb.Controllers
         public IActionResult Project()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit()
+        {
+            return View(new PortfolioProject());
+        }
+
+        [HttpPost]
+        public IActionResult Edit(PortfolioProject portfolioProject)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
