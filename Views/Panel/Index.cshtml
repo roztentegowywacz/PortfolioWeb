@@ -4,7 +4,7 @@
 
 }
 
-<h1>This is a portflio page.</h1>
+<h1>Admin panel</h1>
 
 <div>
     <ul>
@@ -13,6 +13,13 @@
             <li>
                 <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@portfolioProject.Id"> 
                     @portfolioProject.Title
+                </a>
+                <span>-</span>
+                <a asp-controller="Panel" asp-action="Edit" asp-route-id="@portfolioProject.Id"> 
+                    Edit
+                </a>
+                <a asp-controller="Panel" asp-action="Remove" asp-route-id="@portfolioProject.Id"> 
+                    Remove
                 </a>
             </li>
         }

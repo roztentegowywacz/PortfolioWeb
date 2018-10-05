@@ -25,7 +25,7 @@ namespace PortfolioWeb.Controllers
         {
             var result =  await _signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
             
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Panel");
         }
 
         public async Task<IActionResult> Logout()

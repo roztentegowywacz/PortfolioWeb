@@ -11,7 +11,8 @@
     <div>
         <a asp-controller="Home" asp-action="Index">Home</a>
         <a asp-controller="Portfolio" asp-action="Index">Portfolio</a>
-        <a asp-controller="Portfolio" asp-action="Edit">Create new portfolio project</a>
+        <a asp-controller="Panel" asp-action="Index">Admin panel</a>
+        <a asp-controller="Panel" asp-action="Edit">Create new portfolio project</a>
 
         @if (User.Identity.IsAuthenticated)
         {
