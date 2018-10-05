@@ -1,10 +1,20 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioWeb.Data;
+using PortfolioWeb.Data.Repository;
 using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Controllers
 {
     public class PortfolioController : Controller
     {
+        private IRepository _repo;
+
+        public PortfolioController(IRepository repo)
+        {
+            _repo = repo;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -22,9 +32,19 @@ namespace PortfolioWeb.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(PortfolioProject portfolioProject)
+        public async Task<IActionResult> Edit(PortfolioProject portfolioProject)
         {
-            return RedirectToAction("Index");
+            _repo.AddPortfolioProject(portfolioProject);
+
+            if (await _repo.SaveChangesAsync())
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(portfolioProject);
+            }
+
         }
     }
 }
