@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PortfolioWeb.Data.FileManager;
 using PortfolioWeb.Data.Repository;
 using PortfolioWeb.Models;
+using PortfolioWeb.ViewModels;
 
 namespace PortfolioWeb.Controllers
 {
@@ -10,10 +12,12 @@ namespace PortfolioWeb.Controllers
     public class PanelController : Controller
     {
         private IRepository _repo;
+        private IFileManager _fileManager;
 
-        public PanelController(IRepository repo)
+        public PanelController(IRepository repo, IFileManager fileManager)
         {
             _repo = repo;
+            _fileManager = fileManager;
         }
 
         public IActionResult Index()
@@ -33,18 +37,33 @@ namespace PortfolioWeb.Controllers
         { 
             if (id == null)
             {
-                return View(new PortfolioProject());
+                return View(new PortfolioProjectViewModel());
             }
             else
             {
                 var portfolioProject = _repo.GetPortfolioProject((int) id);
-                return View(portfolioProject);
+                return View(new PortfolioProjectViewModel
+                {
+                    Id = portfolioProject.Id,
+                    Title = portfolioProject.Title,
+                    Summary = portfolioProject.Summary,
+                    Body = portfolioProject.Body
+                 });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(PortfolioProject portfolioProject)
+        public async Task<IActionResult> Edit(PortfolioProjectViewModel vm)
         {
+            var portfolioProject = new PortfolioProject
+            {
+                Id = vm.Id,
+                Title = vm.Title,
+                Summary = vm.Summary,
+                Body = vm.Body,
+                Image = await _fileManager.SaveImage(vm.Image)
+            };
+
             if (portfolioProject.Id > 0)
             {
                 _repo.UpdatePortfolioProject(portfolioProject);

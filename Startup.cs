@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PortfolioWeb.Data;
+using PortfolioWeb.Data.FileManager;
 using PortfolioWeb.Data.Repository;
 
 namespace PortfolioWeb
@@ -39,6 +40,7 @@ namespace PortfolioWeb
             });
 
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IFileManager, FileManager>();
             
             services.AddMvc();
         }
@@ -50,6 +52,8 @@ namespace PortfolioWeb
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
             
             app.UseAuthentication();
             

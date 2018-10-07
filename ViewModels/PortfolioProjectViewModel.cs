@@ -1,16 +1,14 @@
-using System;
+using Microsoft.AspNetCore.Http;
 
-namespace PortfolioWeb.Models
+namespace PortfolioWeb.ViewModels
 {
-    public class PortfolioProject
+    public class PortfolioProjectViewModel
     {
         public int Id { get; set; }
 
         public string Title { get; set; } = "";
         public string Summary { get; set; } = "";
         public string Body { get; set; } = "";
-        public string Image { get; set; } = "";
-
-        public DateTime Created { get; set; } = DateTime.Now;
+        public IFormFile Image { get; set; } = null;
     }
 }
