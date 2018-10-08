@@ -1,20 +1,53 @@
 @model IEnumerable<PortfolioProject>
 
 @{
-
+	ViewData["Title"] = "Portfolio";
 }
 
-<h1>This is a portflio page.</h1>
-
-<div>
-    <ul>
+<div class="container mt-4 mb-3">
+    <div class="row">
+    <div class="col">
+        <h1>
+            @ViewData["Title"]
+        </h1>
+    </div>
+    </div>
+    <div class="row mb-5">
+    <div class="col">
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter="all">All</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".web">Web projects</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".cp">C++ / C#</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".prof">Professional</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".edu">Educational</button>
+    </div>
+    </div>
+    
+    <div class="row justify-content-around justify-content-sm-start mb-5" id="portfolio__container" data-ref="mixitup-container">
         @foreach (var portfolioProject in Model)
         {
-            <li>
-                <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@portfolioProject.Id"> 
-                    @portfolioProject.Title
-                </a>
-            </li>
+            <figure class="col-11 col-sm-6 col-lg-4 snip cp" data-ref="mixitup-target">
+                @if (!String.IsNullOrEmpty(portfolioProject.Image))
+                {
+                    var image_path = $"/Image/{portfolioProject.Image}";
+                    <img src="@image_path"/>
+                }
+                else
+                {
+                    <img src="~/content/static/img360.png" alt="Project demo image">
+                }
+                <!-- <img src="~/img/img360.png" alt="sample image 360x360"/> -->
+                <figcaption>
+                    <h2>
+                        @portfolioProject.Title
+                    </h2>
+                    <p>
+                        @portfolioProject.Summary
+                    </p>
+                </figcaption>
+                <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@portfolioProject.Id"></a>
+                <div class="project__tags"><i class="fab fa-html5"></i><i class="fab fa-css3"></i><i class="fab fa-js"></i></div>
+            </figure>
         }
-    </ul>
+    </div>
 </div>
+

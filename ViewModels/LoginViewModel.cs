@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace PortfolioWeb.ViewModels
 {
     public class LoginViewModel

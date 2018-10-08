@@ -1,31 +1,91 @@
 <!DOCTYPE html>
-
 <html>
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <meta name="description" content="This is my portfolio and a blog about my way to become .NET programmer ninja.">
+    <meta name="author" content="Tomasz Klag">
+
+    <!-- Custom fonts -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Asap:400,500,700&amp;subset=latin-ext" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    
+    <!-- Custom style -->
+    <link rel="stylesheet" href="~/css/style.css" />
+
+    <title>
+        @ViewData["Title"]
+    </title>
 </head>
-
 <body>
-    <div>
-        <a asp-controller="Home" asp-action="Index">Home</a>
-        <a asp-controller="Portfolio" asp-action="Index">Portfolio</a>
-        <a asp-controller="Panel" asp-action="Index">Admin panel</a>
-        <a asp-controller="Panel" asp-action="Edit">Create new portfolio project</a>
 
-        @if (User.Identity.IsAuthenticated)
-        {
-            <a asp-controller="Auth" asp-action="Logout">Logout</a>
-        }
-        else
-        {
-            <a asp-controller="Auth" asp-action="Login">Sign In</a>
-        }
-        <a asp-controller="Contact" asp-action="Index">Contact</a>
+    <!-- ////////// NAVIGATION ////////// -->
+    <div class="button__container" id="toggle">
+        <span class="top"></span>
+        <span class="middle"></span>
+        <span class="bottom"></span>
     </div>
-    <div>
+    <div class="overlay" id="overlay">
+        <nav class="overlay__menu">
+            <ul>
+                <li><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a class="nav-link" asp-area="" asp-controller="Portfolio" asp-action="Index">Portfolio</a></li>
+                <li><a class="nav-link" asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>
+                <li><a class="nav-link" asp-area="" asp-controller="Panel" asp-action="Index">Admin</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><a class="nav-link" asp-area="" asp-controller="Panel" asp-action="Edit">Create new portfolio project</a></li>
+                    <li><a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a></li>
+                }
+            </ul>
+        </nav>
+    </div>
+
+    <!-- ////////// BODY ////////// -->
+    <div class="container">
         @RenderBody()
     </div>
+    
+    <!-- ////////// FOOTER ////////// -->
+    <footer>
+        <div class="container-fluid">
+        <div class="row">
+        
+            <div class="col-4" id="button__email">
+            <a class="btn btn__rect" role="button" href="mailto:tomek.klag@gmail.com" title="Send Email to me"><i class="far fa-envelope"></i> &nbsp;Email me</a>
+            </div> <!-- /.col-sm-4 #button__email-->
+            
+            <div class="col-8 text-right" id="footer__social">
+            <span class="d-none d-lg-inline footer__social__text">I'm a social :</span>
+            <a href="https://www.linkedin.com/in/tomaszklag/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            <span class="d-none d-md-inline"> &bull;</span>
+            <a href="https://github.com/roztentegowywacz" target="_blank"><i class="fab fa-github"></i></a>
+            <span class="d-none d-md-inline"> &bull;</span>
+            <a href="https://codepen.io/tomek_klag/" target="_blank"><i class="fab fa-codepen"></i></a>
+            <span class="d-none d-md-inline"> &bull;</span>
+            <a href="https://www.facebook.com/tomasz.klag.9" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <span class="d-none d-md-inline"> &bull;</span>
+            <a href="https://www.messenger.com/t/tomasz.klag.9" target="_blank"><i class="fab fa-facebook-messenger"></i></a>
+            <span class="d-none d-md-inline"> &bull;</span>
+            <a href="https://www.instagram.com/roztentegowywacz/" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div> <!-- /.col-sm-8 #footer__social -->
+            
+        </div> <!-- /.row -->
+        </div> <!-- /.container-fluid -->
+    </footer>
+
+    @RenderSection("Scripts", required: false)
+
+    <!-- ////////// SCRIPTS ////////// -->
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/mixitup.min.js"></script>
+
+    <!--  Custom JavaScrip-->
+    <script src="~/js/app.js"></script>
+
 </body>
 </html>

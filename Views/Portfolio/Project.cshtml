@@ -1,17 +1,67 @@
 @model PortfolioProject
 
 @{
-
+	ViewData["Title"] = "Project details";
 }
 
-<h2>@Model.Title</h2>
+<div class="container">
+    <div class="row mt-4 mb-5">
+    <a class="btn cta" role="button" asp-area="" asp-controller="Portfolio" asp-action="Index" title="Come back to portfolio page">
+        <svg width="20px" height="10px" viewBox="0 0 20 10">
+        <path d="M1,5 L15,5"></path>
+        <polyline points="6 1 1 5 6 9"></polyline>
+        </svg>
+        <span>Back to portfolio</span>
+    </a>
+    </div>
+    
+    <div class="row mb-5">
+    <div class="col-12 mb-3">
+        <h1>
+            @Model.Title
+        </h1>
+    </div>
+    <div class="col-12 mb-4">
+        <span>
+            Posted at @Model.Created
+        </span>
+    </div>
+    <div class="col-12 project__tags-lg">
+        <i class="fab fa-html5"></i>
+        <i class="fab fa-css3"></i>
+        <i class="fab fa-js"></i>
+        <i class="fab fa-sass"></i>
+        <i class="fab fa-gulp"></i>
+    </div>
+    </div>
+    
+    <div class="row mb-4">
+        <div class="col-md-5 col-lg-4 order-lg-2" id="block2__photo">
+            @if (!String.IsNullOrEmpty(Model.Image))
+            {
+                var image_path = $"/Image/{Model.Image}";
+                <img src="@image_path"/>
+            }
+            else
+            {
+                <img src="~/content/static/img360.png" alt="Project demo image">
+            }
+        </div> <!-- /.col-md-5 #block2__photo -->
+        <div class="col-md-7 col-lg-8 order-lg-1 offset__right">
+        
+            <div id="block2__text__separator"></div>            
+            <p>
+                @Model.Summary
+            </p>
+        </div> <!-- /.col-md-7 -->
+        </div> <!-- /.row -->
+        
+        <div class="row mb-5">
+        <div class="col-12">       
+            <p>
+                @Html.Raw(@Model.Body)
+            </p>
 
-<p>@Model.Summary</p>
-
-<p>@Model.Body</p>
-
-@if (!String.IsNullOrEmpty(Model.Image))
-{
-    var image_path = $"/Image/{Model.Image}";
-    <img src="@image_path" width="500" />
-}
+        </div> <!-- /.col-md-7 -->
+    </div> <!-- /.row -->
+</div>
