@@ -68,10 +68,10 @@
 	font-size: 1.6em;
 	margin: 0.7em 0;
   }
-  a {
+  a, a:hover {
 	text-decoration: none;
 	color: inherit;
-  }
+	}
   .mark-block {
 	position: relative;
   }
