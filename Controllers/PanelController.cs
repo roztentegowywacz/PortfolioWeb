@@ -37,10 +37,12 @@ namespace PortfolioWeb.Controllers
         { 
             if (id == null)
             {
+                ViewData["ButtonTitle"] = "Create new project";
                 return View(new PortfolioProjectViewModel());
             }
             else
             {
+                ViewData["ButtonTitle"] = "Update the project";
                 var portfolioProject = _repo.GetPortfolioProject((int) id);
                 return View(new PortfolioProjectViewModel
                 {

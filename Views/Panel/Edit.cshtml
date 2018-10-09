@@ -1,28 +1,42 @@
 @model PortfolioProjectViewModel
 
 @{
-
+	ViewData["Title"] = "Create the new project";
 }
 
-<div>
-    <form asp-controller="Panel" asp-action="Edit" method="POST" enctype="multipart/form-data">
-        <input asp-for="Id" type="hidden" />
-        <div>
-            <label>Title</label>
-            <input asp-for="Title" />
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10 p-4">
+        <div class="card">
+            <div class="card-header">Create a new project to show in the portfolio page.</div>
+        
+            <div class="card-body">
+                <form id="projectForm" asp-controller="Panel" asp-action="Edit" method="POST" enctype="multipart/form-data">
+                    <input asp-for="Id" type="hidden" />
+                    <div class="form-group">
+                        <label asp-for="Title"></label>
+                        <!-- <input type="submit" class="btn btn-sm btn__rect col-6" value="Sign In" /> -->
+                        <input asp-for="Title" placeholder="Project title." type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Summary"></label>
+                        <textarea asp-for="Summary" placeholder="A short description about the project." class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Body"></label>
+                        <textarea asp-for="Body" placeholder="A short description about the project." class="form-control"></textarea>
+                        <!-- <label asp-for="Body"></label>
+                        <input asp-for="Body" id="hiddenArea" type="hidden" />
+                        <div id="editor-container"></div> -->
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Image" type="file" class="upload" />
+                    </div>
+                    <div class="row my-5 justify-content-center">
+                        <button type="submit" class="btn btn-sm btn__rect col-xs-6">@ViewData["ButtonTitle"]</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div>
-            <label>Summary</label>
-            <input asp-for="Summary" />
-        </div>
-        <div>
-            <label>Body</label>
-            <input asp-for="Body" />
-        </div>
-        <div>
-            <label>Image</label>
-            <input asp-for="Image" />
-        </div>
-        <input type="submit" value="Submit" />
-    </form>
+    </div>
 </div>
