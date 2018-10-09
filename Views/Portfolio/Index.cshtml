@@ -16,8 +16,8 @@
     <div class="col">
         <button type="button" class="btn btn-sm btn-sm__rect" data-filter="all">All</button>
         <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".web">Web projects</button>
-        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".cp">C++ / C#</button>
-        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".prof">Professional</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".alg">C++ / C#</button>
+        <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".comm">Commercial</button>
         <button type="button" class="btn btn-sm btn-sm__rect" data-filter=".edu">Educational</button>
     </div>
     </div>
@@ -25,7 +25,10 @@
     <div class="row justify-content-around justify-content-sm-start mb-5" id="portfolio__container" data-ref="mixitup-container">
         @foreach (var portfolioProject in Model)
         {
-            <figure class="col-11 col-sm-6 col-lg-4 snip cp" data-ref="mixitup-target">
+            <figure class=  "col-11 col-sm-6 col-lg-4 snip 
+                            @((portfolioProject.IsCommercial == true) ? " comm" : " edu")
+                            @((portfolioProject.IsWebProject == true) ? " web" : " alg")"
+            data-ref="mixitup-target">
                 @if (!String.IsNullOrEmpty(portfolioProject.Image))
                 {
                     var image_path = $"/Image/{portfolioProject.Image}";
@@ -35,8 +38,7 @@
                 {
                     <img src="~/content/static/img360.png" alt="Project demo image">
                 }
-                <!-- <img src="~/img/img360.png" alt="sample image 360x360"/> -->
-                <figcaption>
+                <figcaption class="overflow-y-hide">
                     <h2>
                         @portfolioProject.Title
                     </h2>

@@ -29,10 +29,32 @@
                         <input asp-for="Body" id="hiddenArea" type="hidden" />
                         <div id="editor-container"></div> -->
                     </div>
+                    <div class="form-group my-4">
+                        <div class="checkbox">
+                            <label>
+                                <input asp-for="IsCommercial" type="checkbox" />
+                                <span></span><p class="checkbox_label">This is a commercial project</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group my-4">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" asp-for="IsWebProject" value="true" />
+                                <span></span><p class="checkbox_label">Web application</p>
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" asp-for="IsWebProject" value="false" />
+                                <span></span><p class="checkbox_label">Console application or algorithm</p>
+                            </label>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <input asp-for="Image" type="file" class="upload" />
                     </div>
-                    <div class="row my-5 justify-content-center">
+                    <div class="row my-4 justify-content-center">
                         <button type="submit" class="btn btn-sm btn__rect col-xs-6">@ViewData["ButtonTitle"]</button>
                     </div>
                 </form>

@@ -49,7 +49,9 @@ namespace PortfolioWeb.Controllers
                     Id = portfolioProject.Id,
                     Title = portfolioProject.Title,
                     Summary = portfolioProject.Summary,
-                    Body = portfolioProject.Body
+                    Body = portfolioProject.Body,
+                    IsCommercial = portfolioProject.IsCommercial,
+                    IsWebProject = portfolioProject.IsWebProject
                  });
             }
         }
@@ -63,6 +65,8 @@ namespace PortfolioWeb.Controllers
                 Title = vm.Title,
                 Summary = vm.Summary,
                 Body = vm.Body,
+                IsCommercial = vm.IsCommercial,
+                IsWebProject = vm.IsWebProject,
                 Image = await _fileManager.SaveImage(vm.Image)
             };
 
