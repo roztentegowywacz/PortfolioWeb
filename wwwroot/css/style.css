@@ -48,9 +48,11 @@
   html,
   body,
   .container {
-	height: 100%;
 	color: var(--color-navy);
-  }
+	}
+	.container__main {
+		height: calc(100% - 40px);
+	}
   body {
 	font-size: 18px;
 	background-image: url(../content/static/pattern/ps_neutral.png);
@@ -772,14 +774,15 @@
   .contact__details span {
 	font-size: 1.3em;
 	font-weight: 500;
-	line-height: 270%;
+	line-height: 100%;
   }
   
   .contact__details i {
 	font-size: 2em;
 	padding: 10% 20%;
 	color:  var(--color-navy);
-  }
+	}
+	
   .contact__details i:hover {
 	transform: scale3d(1.1, 1.1, 1);
 	transition: all 0.2s cubic-bezier(0.1, 4, 1, 1);
