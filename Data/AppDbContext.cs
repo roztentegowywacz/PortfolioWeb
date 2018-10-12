@@ -13,5 +13,6 @@ namespace PortfolioWeb.Data
         }
         
         public DbSet<PortfolioProject> PortfolioProjects { get; set; }
+        public DbSet<TechnologyTag> TechnologyTags { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 
 namespace PortfolioWeb.ViewModels
@@ -6,6 +7,7 @@ namespace PortfolioWeb.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         public string Title { get; set; } = "";
         public string Summary { get; set; } = "";
         public string Body { get; set; } = "";

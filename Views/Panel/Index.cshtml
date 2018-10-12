@@ -12,6 +12,17 @@
             </h1>
         </div>
     </div>
+
+    <div class="row mt-5">
+        <div class="col list-group">
+            <a asp-controller="Tags" asp-action="Edit">
+                <div class="list-group-item btn-light">
+                    <span class="text-uppercase font-weight-bold">Add new development technology tag</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <div class="row mt-5">
         <div class="col list-group">
             @foreach (var portfolioProject in Model)
@@ -39,7 +50,7 @@
                 </div>
             }
             <a asp-controller="Panel" asp-action="Edit">
-                <div class="list-group-item list-group-item-actio btn-light">
+                <div class="list-group-item btn-light">
                     <span class="text-uppercase font-weight-bold">Create new project</span>
                 </div>
             </a>

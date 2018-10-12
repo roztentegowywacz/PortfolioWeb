@@ -5,11 +5,11 @@ using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Data.Repository
 {
-    public class Repository : IRepository
+    public class PortfolioProjectRepository : IPortfolioProjectRepository
     {
         private AppDbContext _ctx;
 
-        public Repository(AppDbContext ctx)
+        public PortfolioProjectRepository(AppDbContext ctx)
         {
             _ctx = ctx;
         }

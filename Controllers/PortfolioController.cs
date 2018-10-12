@@ -9,10 +9,10 @@ namespace PortfolioWeb.Controllers
 {
     public class PortfolioController : Controller
     {
-        private IRepository _repo;
+        private IPortfolioProjectRepository _repo;
         private IFileManager _fileManager;
 
-        public PortfolioController(IRepository repo, IFileManager fileManager)
+        public PortfolioController(IPortfolioProjectRepository repo, IFileManager fileManager)
         {
             _repo = repo;
             _fileManager = fileManager;

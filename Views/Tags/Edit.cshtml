@@ -1,0 +1,37 @@
+@model TechnologyTagViewModel
+
+@{
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-10 p-4">
+        <div class="card">
+            <div class="card-header">@ViewData["Title"]</div>
+            <div class="card-body">
+                <div>
+                    <p>Please visit <a href="http://konpa.github.io/devicon/" target="_blank">DEVICON </a>site to find new Technology icon</p>
+                </div>
+                <form id="projectForm" asp-controller="Tags" asp-action="Edit" method="POST" >
+                    <div asp-validation-summary="All" class="text-danger font-weight-light"></div>
+                    <input asp-for="Id" type="hidden" />
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" placeholder="Tag name." type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="CssClassName"></label>
+                        <input asp-for="CssClassName" placeholder="Insert <i> class name here." class="form-control" />
+                    </div>
+                    <div class="row my-4 justify-content-center">
+                        <button type="submit" class="btn btn-sm btn__rect col-xs-6">@ViewData["ButtonTitle"]</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/lib/jQuery/jquery.validate.min.js"></script>
+    <script src="~/lib/jQuery/jquery.validate.unobtrusive.min.js"></script>
+} 

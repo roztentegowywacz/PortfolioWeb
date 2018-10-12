@@ -11,10 +11,10 @@ namespace PortfolioWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class PanelController : Controller
     {
-        private IRepository _repo;
+        private IPortfolioProjectRepository _repo;
         private IFileManager _fileManager;
 
-        public PanelController(IRepository repo, IFileManager fileManager)
+        public PanelController(IPortfolioProjectRepository repo, IFileManager fileManager)
         {
             _repo = repo;
             _fileManager = fileManager;

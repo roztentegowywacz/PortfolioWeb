@@ -1,26 +1,46 @@
+@model IEnumerable<TechnologyTag>
+
 @{
 	ViewData["Title"] = "Tomasz Klag";
+}
+
+@section styles {
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
 }
 
 <div class="mt-5">
     
         <div class="row" id="block1">
-        <div class="col-md-5 col-lg-6" id="block1__photo">
-            <img src="~/content/static/Home/cv_image_1.2.jpg" alt="Tomasz Klag">
-        </div> <!-- /.col-md-5 .col-lg-6 #block1__photo -->
-        <div class="col-md-7 col-lg-6" id="block1__text">
-            <div class="row">
-            <div class="col-md-1 col-lg-3 col-xl-2">
-            </div> <!-- /.col-lg-3 col-xl-2 -->
-            <div class="col-md-11 col-lg-9 col-xl-10">
-                <h1>Tomasz<br>Klag</h1>
-                <h2>Tutaj <span class="mark-block">jakieś kilka</span> słów&nbsp;o mnie.</h2>
-                <p>Mmimo iż z wykształcenia jestem inżynierem budownictwa, to moje zainteresowania zmierzają w stronę IT. Jestem samoukiem i dzięki nieograniczonym zasobom internetu </p>
-                <p>Homero intellegam no mei. Cu ius impedit eligendi persecuti. Eam ex paulo nihil tractatos, sed no illud dolore, ut nullam minimum splendide vel. Aeque theophrastus comprehensam ius ad.</p>
-            </div> <!-- /.col-lg-9 col-xl-10 -->
-            </div> <!-- /.row -->
-        </div> <!-- /.col-md-7 col-lg-6 #block1__text -->
+            <div class="col-md-5 col-lg-6" id="block1__photo">
+                <img src="~/content/static/Home/cv_image_1.2.jpg" alt="Tomasz Klag">
+            </div> <!-- /.col-md-5 .col-lg-6 #block1__photo -->
+            <div class="col-md-7 col-lg-6" id="block1__text">
+                <div class="row">
+                    <div class="col-md-1 col-lg-3 col-xl-2">
+                    </div> <!-- /.col-lg-3 col-xl-2 -->
+                    <div class="col-md-11 col-lg-9 col-xl-10">
+                        <h1>Tomasz Klag</h1>
+                        <h2>Tutaj <span class="mark-block">jakieś hasło</span> kluczowe albo cytat.</h2>
+                        <p>Jestem osobą kreatywną, dla której <b>nie ma, że się nie da</b>. 
+                        Na pierwszym miejscu stawiam <b>ROZWÓJ</b> i nie odpoczywam, dopóki nie osiągnę zamierzonego celu. 
+                        Od ponad roku moje „po godzinach” wypełnia kodowanie języku <b>C#</b> z wykożystaniem frameworka <b>.NET Core</b>. 
+                        W międzyczasie zdążyłem zaprzyjaźnić się również z <b>HTML5</b>, 
+                        <b>JavaScript</b>, <b>jQuery</b> <b>CSS3</b>, <b>Bootstrap4</b>. 
+                        Ogarniam również diployment aplikacji .NET Core na serwer Linux.</p>
+                        <p>W realu – szczęśliwy tata i amator Tatr (bez względu na porę roku). Po mieście najchętniej porusza się rowerem. Uwielbia polską i włoską kuchnię. W planach – kurs pilotażu PPL. Doświadczony wolontariusz SZLACHETNEJ PACZKI z żyłką do organizacji i zarządzania w kryzysie.</p>
+                    </div> <!-- /.col-lg-9 col-xl-10 -->
+                </div> <!-- /.row -->
+            </div> <!-- /.col-md-7 col-lg-6 #block1__text -->
         </div> <!-- /.row #block1 -->
+
+        <div class="row my-5">
+            @foreach (var technologyTag in Model)
+            {
+                <div class="col">
+                    <i class="@technologyTag.CssClassName display-2"></i>
+                </div>
+            }
+        </div>
 
         <div class="row" id="block2">
         <div class="col-md-5 col-lg-4 order-lg-2" id="block2__photo">

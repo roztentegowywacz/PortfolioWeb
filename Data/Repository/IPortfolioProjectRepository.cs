@@ -4,7 +4,7 @@ using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Data.Repository
 {
-    public interface IRepository
+    public interface IPortfolioProjectRepository
     {
         PortfolioProject GetPortfolioProject(int id);
         List<PortfolioProject> GetAllPortfolioProjects();
