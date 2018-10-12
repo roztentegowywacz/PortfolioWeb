@@ -4,6 +4,9 @@
 	ViewData["Title"] = "Create the new project";
 }
 
+@section styles {
+    <link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+}
 
 <div class="row justify-content-center mt-5">
     <div class="col-md-10 p-4">
@@ -24,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Body"></label>
-                        <textarea asp-for="Body" placeholder="A short description about the project." class="form-control"></textarea>
+                        <textarea asp-for="Body" placeholder="A description about the project." id="editor" class="form-control"></textarea>
                         <!-- <label asp-for="Body"></label>
                         <input asp-for="Body" id="hiddenArea" type="hidden" />
                         <div id="editor-container"></div> -->
@@ -63,3 +66,10 @@
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="~/lib/Trumbowyg-master/dist/trumbowyg.min.js"></script>
+    <script>
+        $('#editor').trumbowyg();
+    </script>
+}

@@ -5,14 +5,29 @@
 }
 
 <div class="container">
-    <div class="row mt-4 mb-5">
-    <a class="btn cta" role="button" asp-area="" asp-controller="Portfolio" asp-action="Index" title="Come back to portfolio page">
-        <svg width="20px" height="10px" viewBox="0 0 20 10">
-        <path d="M1,5 L15,5"></path>
-        <polyline points="6 1 1 5 6 9"></polyline>
-        </svg>
-        <span>Back to portfolio</span>
-    </a>
+    <div class="row mt-4 mb-5 align-items-center">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="col-12 col-sm-6 order-sm-last text-center text-sm-left">
+                <div class="btn-group" role="group" >
+                    <a asp-controller="Panel" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-admin btn-outline-secondary"> 
+                        Edit
+                    </a>
+                    <a asp-controller="Panel" asp-action="Remove" asp-route-id="@Model.Id" class="btn btn-admin btn-danger"> 
+                        Remove
+                    </a>
+                </div>
+            </div>
+        }
+        <div class="col-6">
+            <a class="btn cta" role="button" asp-controller="Portfolio" asp-action="Index" title="Come back to portfolio page">
+                <svg width="20px" height="10px" viewBox="0 0 20 10">
+                    <path d="M1,5 L15,5"></path>
+                    <polyline points="6 1 1 5 6 9"></polyline>
+                </svg>
+                <span>Back to portfolio</span>
+            </a>
+        </div>
     </div>
     
     <div class="row mb-5">

@@ -11,8 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Asap:400,500,700&amp;subset=latin-ext" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/Bootstrap/bootstrap.min.css" />
     
+    <!-- Styles for specific site -->
+    @RenderSection("styles", required: false)
+
     <!-- Custom style -->
     <link rel="stylesheet" href="~/css/style.css" />
 
@@ -77,12 +80,13 @@
         </div> <!-- /.container-fluid -->
     </footer>
 
-    @RenderSection("Scripts", required: false)
-
     <!-- ////////// SCRIPTS ////////// -->
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/mixitup.min.js"></script>
+    <script src="~/lib/Bootstrap/bootstrap.min.js"></script>
+    <script src="~/lib/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="~/lib/mixitup/mixitup.min.js"></script>
+    
+    <!-- Scripts for specific site -->
+    @RenderSection("scripts", required: false)
 
     <!--  Custom JavaScrip-->
     <script src="~/js/app.js"></script>

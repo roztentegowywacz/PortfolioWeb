@@ -90,7 +90,8 @@ namespace PortfolioWeb.Controllers
 
             if (await _repo.SaveChangesAsync())
             {
-                return RedirectToAction("Index");
+                return Redirect($"/Portfolio/Project/{portfolioProject.Id}");
+                // return RedirectToAction("Index");
             }
             else
             {
