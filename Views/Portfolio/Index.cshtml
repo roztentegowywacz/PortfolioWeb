@@ -53,3 +53,18 @@
     </div>
 </div>
 
+@section scripts {
+    
+    <script src="~/lib/mixitup/mixitup.min.js"></script>
+    <script>
+        // Initialize Mixitup (gallery and filter)
+        var containerEl = document.querySelector('[data-ref="mixitup-container"]');
+
+        var mixer = mixitup(containerEl, {
+            selectors: {
+                target: '[data-ref="mixitup-target"]'
+            }
+        });
+        // Initialize Mixitup - END
+    </script>
+}
