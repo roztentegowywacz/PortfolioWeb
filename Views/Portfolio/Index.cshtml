@@ -1,7 +1,11 @@
-@model IEnumerable<PortfolioProject>
+@model IEnumerable<Project>
 
 @{
 	ViewData["Title"] = "Portfolio";
+}
+
+@section styles {
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
 }
 
 <div class="container mt-4 mb-3">
@@ -23,15 +27,15 @@
     </div>
     
     <div class="row justify-content-around justify-content-sm-start mb-5" id="portfolio__container" data-ref="mixitup-container">
-        @foreach (var portfolioProject in Model)
+        @foreach (var project in Model)
         {
             <figure class=  "col-11 col-sm-6 col-lg-4 snip 
-                            @((portfolioProject.IsCommercial == true) ? " comm" : " edu")
-                            @((portfolioProject.IsWebProject == true) ? " web" : " alg")"
+                            @((project.IsCommercial == true) ? " comm" : " edu")
+                            @((project.IsWebProject == true) ? " web" : " alg")"
             data-ref="mixitup-target">
-                @if (!String.IsNullOrEmpty(portfolioProject.Image))
+                @if (!String.IsNullOrEmpty(project.Image))
                 {
-                    var image_path = $"/Image/{portfolioProject.Image}";
+                    var image_path = $"/Image/{project.Image}";
                     <img src="@image_path"/>
                 }
                 else
@@ -40,14 +44,26 @@
                 }
                 <figcaption class="overflow-y-hide">
                     <h2>
-                        @portfolioProject.Title
+                        @project.Title
                     </h2>
                     <p>
-                        @portfolioProject.Summary
+                        @project.Summary
                     </p>
                 </figcaption>
-                <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@portfolioProject.Id"></a>
-                <div class="project__tags"><i class="fab fa-html5"></i><i class="fab fa-css3"></i><i class="fab fa-js"></i></div>
+                <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@project.Id"></a>
+                <div class="project__tags">
+                    @if (project.ProjectTechnologyTags != null)
+                    {
+                        foreach (var tag in project.ProjectTechnologyTags)
+                        {
+                            <i class="@tag.TechnologyTag.CssClassName"></i>
+                        }
+                    }
+                    else
+                    {
+                        <i>No tags</i>
+                    }
+                </div>
             </figure>
         }
     </div>

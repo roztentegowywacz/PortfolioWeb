@@ -36,8 +36,8 @@
         <div class="row my-5">
             @foreach (var technologyTag in Model)
             {
-                <div class="col">
-                    <i class="@technologyTag.CssClassName display-2"></i>
+                <div class="col" data-toggle="tooltip" data-placement="top" title="@technologyTag.Name">
+                    <i class="@technologyTag.CssClassName display-3"></i>
                 </div>
             }
         </div>
@@ -49,11 +49,8 @@
         <div class="col-md-7 col-lg-8 order-lg-1" id="block2__text">
             <h2>Edukacja</h2>
             <div id="block2__text__separator"></div>
-            <p>TODO: Napisać edukację</p>
-            
-            <p>Lorem ipsum dolor sit amet, at eam tantas reprimique, quod alienum oporteat his id. Vix id falli regione. Ad eam dicit invidunt inciderint! Cum te modus quidam putant, et mel alia vitae invidunt.</p>
-            
-            <p>Eu pri hendrerit dissentias delicatissimi, nostro delectus et nam? Ignota abhorreant at pro, mea in adipiscing suscipiantur. Habeo mazim pro eu, error reformidans ne mei? Vocibus efficiendi reprehendunt ex est.</p>
+            <p>Aktualnie łączę kropki, poszukując wiedzy związanej z programowaniem w Internecie, realizując wybrane kursy programowania dostępne na LinkedIn oraz penetrując tomiszcza Packt’u, O’Reilly i Adama Freemana.</p>
+            <p>5 intensywnych lat na Politechnice Krakowskiej (kierunek budownictwo) nauczyło mnie skrupulatności i analitycznego myślenia. Z kolei pierwsze spotkanie z C++ to czas liceum i wertowania „Symfonii C++”.</p>
         </div> <!-- /.col-md-7 #block2__text -->
         </div> <!-- /.row #block2 -->
 
@@ -64,9 +61,13 @@
         <div class="col-md-7 col-lg-8" id="block3__text">
             <h2>Doświadczenie zawodowe</h2>
             <div id="block3__text__separator"></div>
-            <p>Lorem ipsum dolor sit amet, quod iracundia nam ei. Usu et erroribus tincidunt, vis ne civibus deserunt periculis, id qualisque scribentur per. Vix harum soluta percipitur ad, et est movet quidam omnesque, at inani legimus similique est. Veri iuvaret repudiandae mel id, quo nemore denique ocurreret at.</p>
-
-            <p>Pri quem nibh no, quas elitr constituto pro te, sed vivendo insolens ex. Id eos blandit maluisset quaerendum. Ei eam ignota animal iracundia, nobis electram democritum ex sed, duo putent nonumes expetenda an. Per ne possit nominati torquatos, pri animal accusata eu. Eum cu odio aperiri, et cum duis theophrastus.</p>
+            <p>Jako BIM Specialist w Multimedia Communication łączyłem budownictwo ze światem IT. Czynnie współpracowałem z zespołem programistów, koordynując projekty, dla których dostarczałem niezbędnej wiedzy technicznej.</p> 
+            <p>Wcześniej zbierałem rozmaite doświadczenia w: </p>
+            <ul>
+                <li>biurze konstrukcyjnym firmy Wiśniowski,</li>
+                <li>biurze projektowym Lewicki&Łatak,</li>
+                <li>oraz jako asystent kierownika budowy w MotaEngil.</li>
+            </ul>
         </div> <!-- /.col-md-7 col-lg-8 #block3__text -->
         </div> <!-- /.row #block3-->
     
@@ -77,3 +78,11 @@
         </div> <!-- /.row #button-more -->
     
     </div> <!-- /.container -->
+
+    @section scripts {
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

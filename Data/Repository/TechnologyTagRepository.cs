@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Data.Repository
@@ -37,6 +38,14 @@ namespace PortfolioWeb.Data.Repository
         public void UpdateTechnologyTag(TechnologyTag technologyTag)
         {
             _ctx.TechnologyTags.Update(technologyTag);
+        }
+
+        public List<ProjectTechnologyTag> GetAssociatedProjects(int id)
+        {
+            return _ctx.ProjectTechnologyTags
+                .Include(x => x.Project)
+                .Where(ptt => ptt.TechnologyTagID == id)
+                .ToList();
         }
 
         public async Task<bool> SaveChangesAsync()

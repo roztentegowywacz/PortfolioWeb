@@ -12,7 +12,26 @@ namespace PortfolioWeb.Data
             
         }
         
-        public DbSet<PortfolioProject> PortfolioProjects { get; set; }
+        public DbSet<Project> Projects { get; set; }
         public DbSet<TechnologyTag> TechnologyTags { get; set; }
+        public DbSet<ProjectTechnologyTag> ProjectTechnologyTags { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ProjectTechnologyTag>()
+                .HasKey(x => new { x.ProjectID, x.TechnologyTagID});
+
+            modelBuilder.Entity<ProjectTechnologyTag>()
+                .HasOne(pt => pt.Project)
+                .WithMany(p => p.ProjectTechnologyTags)
+                .HasForeignKey(pt => pt.ProjectID);
+
+            modelBuilder.Entity<ProjectTechnologyTag>()
+                .HasOne(pt => pt.TechnologyTag)
+                .WithMany(t => t.ProjectTechnologyTags)
+                .HasForeignKey(pt => pt.TechnologyTagID);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

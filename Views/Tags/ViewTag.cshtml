@@ -1,0 +1,21 @@
+@model ViewTagViewModel
+
+@{
+
+}
+
+<ul>
+    @foreach (var associatedProject in Model.AssociatedProjects)
+    {
+        <li>@associatedProject.Project.Title</li>
+    }
+</ul>
+
+@if (Model.AssociatedProjects.Count == 0)
+{
+    <p>No projects</p>
+}
+
+<p>
+    <a asp-controller="Tags" asp-action="AddAssociatedProject" asp-route-id="@Model.TechnologyTag.Id">Add new project</a>
+</p>

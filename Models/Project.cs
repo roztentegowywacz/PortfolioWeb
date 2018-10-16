@@ -1,19 +1,21 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 
-namespace PortfolioWeb.ViewModels
+namespace PortfolioWeb.Models
 {
-    public class PortfolioProjectViewModel
+    public class Project
     {
         public int Id { get; set; }
 
-        [Required]
         public string Title { get; set; } = "";
         public string Summary { get; set; } = "";
         public string Body { get; set; } = "";
-        public string CurrentImage { get; set; } = "";
-        public IFormFile Image { get; set; } = null;
+        public string Image { get; set; } = "";
         public bool IsCommercial { get; set; } = false;
         public bool IsWebProject { get; set; } = true;
+
+        public List<ProjectTechnologyTag> ProjectTechnologyTags { get; set; }
+
+        public DateTime Created { get; set; } = DateTime.Now;
     }
 }

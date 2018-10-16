@@ -1,4 +1,4 @@
-@model IEnumerable<PortfolioProject>
+@model IEnumerable<Project>
 
 @{
     ViewData["Title"] = "Menage your portfolio";
@@ -15,9 +15,9 @@
 
     <div class="row mt-5">
         <div class="col list-group">
-            <a asp-controller="Tags" asp-action="Edit">
+            <a asp-controller="Tags" asp-action="Index">
                 <div class="list-group-item btn-light">
-                    <span class="text-uppercase font-weight-bold">Add new development technology tag</span>
+                    <span class="text-uppercase font-weight-bold">Menage development technology tags</span>
                 </div>
             </a>
         </div>
@@ -25,25 +25,25 @@
 
     <div class="row mt-5">
         <div class="col list-group">
-            @foreach (var portfolioProject in Model)
+            @foreach (var project in Model)
             {
                 <div class="list-group-item list-group-item-action">
-                    <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@portfolioProject.Id"> 
+                    <a asp-controller="Portfolio" asp-action="Project" asp-route-id="@project.Id"> 
                         <h4 class="mb-1">
-                            @portfolioProject.Title
+                            @project.Title
                         </h4>
                         <p class="mb-1">
-                            @portfolioProject.Summary
+                            @project.Summary
                         </p>
                         <small>
-                            Created @portfolioProject.Created.
+                            Created @project.Created.
                         </small>
                     </a>
                     <div class="btn-group float-right" role="group" >
-                        <a asp-controller="Panel" asp-action="Edit" asp-route-id="@portfolioProject.Id" class="btn btn-outline-secondary"> 
+                        <a asp-controller="Panel" asp-action="Edit" asp-route-id="@project.Id" class="btn btn-outline-secondary"> 
                             Edit
                         </a>
-                        <a asp-controller="Panel" asp-action="Remove" asp-route-id="@portfolioProject.Id" class="btn btn-danger"> 
+                        <a asp-controller="Panel" asp-action="Remove" asp-route-id="@project.Id" class="btn btn-danger"> 
                             Remove
                         </a>
                     </div>

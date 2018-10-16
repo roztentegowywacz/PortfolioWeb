@@ -1,7 +1,11 @@
-@model PortfolioProject
+@model Project
 
 @{
 	ViewData["Title"] = "Project details";
+}
+
+@section styles {
+    <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
 }
 
 <div class="container">
@@ -42,12 +46,21 @@
         </span>
     </div>
     <div class="col-12 project__tags-lg">
-        <i class="fab fa-html5"></i>
-        <i class="fab fa-css3"></i>
-        <i class="fab fa-js"></i>
-        <i class="fab fa-sass"></i>
-        <i class="fab fa-gulp"></i>
+        @if (Model.ProjectTechnologyTags != null)
+        {
+            foreach (var tag in Model.ProjectTechnologyTags)
+            {
+                <i class="@tag.TechnologyTag.CssClassName"></i>
+            }
+        }
     </div>
+        <!-- <div class="col-12 project__tags-lg">
+            <i class="fab fa-html5"></i>
+            <i class="fab fa-css3"></i>
+            <i class="fab fa-js"></i>
+            <i class="fab fa-sass"></i>
+            <i class="fab fa-gulp"></i>
+        </div> -->
     </div>
     
     <div class="row mb-4">

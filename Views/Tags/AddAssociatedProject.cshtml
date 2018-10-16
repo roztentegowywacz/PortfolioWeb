@@ -1,0 +1,16 @@
+@model AddAssociatedProjectViewModel
+
+@{
+
+}
+
+<form asp-controller="Tags" asp-action="AddAssociatedProject" method="POST">
+    <div class="form-group">
+        <label asp-for="ProjectId"></label>
+        <select asp-for="ProjectId" asp-items="@Model.Projects"></select>
+    </div>
+
+    <input type="hidden" name="TechnologyTagId" value="@Model.TechnologyTag.Id" />
+
+    <input type="submit" value="Add associated project" />
+</form>

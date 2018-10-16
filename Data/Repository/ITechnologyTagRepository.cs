@@ -12,6 +12,8 @@ namespace PortfolioWeb.Data.Repository
         void RemoveTechnologyTag(int id);
         void UpdateTechnologyTag(TechnologyTag technologyTag);
 
+        List<ProjectTechnologyTag> GetAssociatedProjects(int id);
+
         Task<bool> SaveChangesAsync();
     }
 }

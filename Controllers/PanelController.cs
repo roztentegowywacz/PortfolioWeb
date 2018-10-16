@@ -11,10 +11,10 @@ namespace PortfolioWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class PanelController : Controller
     {
-        private IPortfolioProjectRepository _repo;
+        private IProjectRepository _repo;
         private IFileManager _fileManager;
 
-        public PanelController(IPortfolioProjectRepository repo, IFileManager fileManager)
+        public PanelController(IProjectRepository repo, IFileManager fileManager)
         {
             _repo = repo;
             _fileManager = fileManager;
@@ -22,14 +22,14 @@ namespace PortfolioWeb.Controllers
 
         public IActionResult Index()
         {
-            var portfolioProjects = _repo.GetAllPortfolioProjects();
-            return View(portfolioProjects);
+            var projects = _repo.GetAllProjects();
+            return View(projects);
         }
 
         public IActionResult Project(int id)
         {
-            var portfolioProject = _repo.GetPortfolioProject(id);
-            return View(portfolioProject);
+            var project = _repo.GetProject(id);
+            return View(project);
         }
 
         [HttpGet]
@@ -38,29 +38,29 @@ namespace PortfolioWeb.Controllers
             if (id == null)
             {
                 ViewData["ButtonTitle"] = "Create new project";
-                return View(new PortfolioProjectViewModel());
+                return View(new ProjectViewModel());
             }
             else
             {
                 ViewData["ButtonTitle"] = "Update the project";
-                var portfolioProject = _repo.GetPortfolioProject((int) id);
-                return View(new PortfolioProjectViewModel
+                var project = _repo.GetProject((int) id);
+                return View(new ProjectViewModel
                 {
-                    Id = portfolioProject.Id,
-                    Title = portfolioProject.Title,
-                    Summary = portfolioProject.Summary,
-                    Body = portfolioProject.Body,
-                    CurrentImage = portfolioProject.Image,
-                    IsCommercial = portfolioProject.IsCommercial,
-                    IsWebProject = portfolioProject.IsWebProject
+                    Id = project.Id,
+                    Title = project.Title,
+                    Summary = project.Summary,
+                    Body = project.Body,
+                    CurrentImage = project.Image,
+                    IsCommercial = project.IsCommercial,
+                    IsWebProject = project.IsWebProject
                  });
             }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(PortfolioProjectViewModel vm)
+        public async Task<IActionResult> Edit(ProjectViewModel vm)
         {
-            var portfolioProject = new PortfolioProject
+            var project = new Project
             {
                 Id = vm.Id,
                 Title = vm.Title,
@@ -72,41 +72,39 @@ namespace PortfolioWeb.Controllers
 
             if (vm.Image == null)
             {
-                portfolioProject.Image = vm.CurrentImage;
+                project.Image = vm.CurrentImage;
             }
             else
             {
-                portfolioProject.Image = await _fileManager.SaveImage(vm.Image);
+                project.Image = await _fileManager.SaveImage(vm.Image);
             }
 
-            if (portfolioProject.Id > 0)
+            if (project.Id > 0)
             {
-                _repo.UpdatePortfolioProject(portfolioProject);
+                _repo.UpdateProject(project);
             }
             else
             {
-                _repo.AddPortfolioProject(portfolioProject);
+                _repo.AddProject(project);
             }
 
             if (await _repo.SaveChangesAsync())
             {
-                return Redirect($"/Portfolio/Project/{portfolioProject.Id}");
+                return Redirect($"/Portfolio/Project/{project.Id}");
                 // return RedirectToAction("Index");
             }
             else
             {
-                return View(portfolioProject);
+                return View(project);
             }
-
         }
 
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
         { 
-            _repo.RemovePortfolioProject(id);
+            _repo.RemoveProject(id);
             await _repo.SaveChangesAsync();
             return RedirectToAction("Index");
-        }
-        
+        } 
     }
 }
