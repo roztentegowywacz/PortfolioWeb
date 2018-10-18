@@ -46,6 +46,7 @@ namespace PortfolioWeb
                 options.LoginPath = "/Auth/Login";
             });
 
+            services.AddTransient<IRepository, Repository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<ITechnologyTagRepository, TechnologyRepository>();
             services.AddTransient<IFileManager, FileManager>();

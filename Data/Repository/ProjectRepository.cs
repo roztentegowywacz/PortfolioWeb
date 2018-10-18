@@ -42,19 +42,7 @@ namespace PortfolioWeb.Data.Repository
 
         public List<ProjectTechnologyTag> GetAssociatedTechnologyTags(int id)
         {
-            return _ctx.ProjectTechnologyTags
-                .Include(x => x.TechnologyTag)
-                .Where(ptt => ptt.ProjectID == id)
-                .ToList();
-        }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            if (await _ctx.SaveChangesAsync() > 0)
-            {
-                return true;
-            }
-            return false;
+            return _ctx.ProjectTechnologyTags.Include(x => x.TechnologyTag).Where(x => x.ProjectID == id).ToList();           
         }
     }
 }

@@ -47,14 +47,5 @@ namespace PortfolioWeb.Data.Repository
                 .Where(ptt => ptt.TechnologyTagID == id)
                 .ToList();
         }
-
-        public async Task<bool> SaveChangesAsync()
-        {
-            if (await _ctx.SaveChangesAsync() > 0)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }

@@ -13,14 +13,16 @@ namespace PortfolioWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class PanelController : Controller
     {
-        private IProjectRepository _repo;
+        private IRepository _repo;
+        private IProjectRepository _projectRepo;
         private IFileManager _fileManager;
         private ITechnologyTagRepository _repott;
         private IPTTRepository _repoptt;
 
-        public PanelController(IProjectRepository repo, IFileManager fileManager, ITechnologyTagRepository repott, IPTTRepository repoptt)
+        public PanelController(IRepository repo, IProjectRepository projectRepo, IFileManager fileManager, ITechnologyTagRepository repott, IPTTRepository repoptt)
         {
             _repo = repo;
+            _projectRepo = projectRepo;
             _fileManager = fileManager;
             _repott = repott;
             _repoptt = repoptt;
@@ -28,51 +30,55 @@ namespace PortfolioWeb.Controllers
 
         public IActionResult Index()
         {
-            var projects = _repo.GetAllProjects();
+            var projects = _projectRepo.GetAllProjects();
             return View(projects);
         }
 
         public IActionResult Project(int id)
         {
-            var project = _repo.GetProject(id);
+            var project = _projectRepo.GetProject(id);
             return View(project);
         }
 
         [HttpGet]
         public IActionResult Edit(int? id)
         {
-            var item = _repott.GetAllTechnologyTags();
-            ProjectViewModel vm = new ProjectViewModel();
-            vm.AvailableTechnologyTags = item;
+            // ProjectViewModel vm = new ProjectViewModel();
+            // vm.AvailableTechnologyTags = _repott.GetAllTechnologyTags();
             
             if (id == null)
             {
                 ViewData["ButtonTitle"] = "Create new project";
                 // return View(new ProjectViewModel());
-                return View(vm);
+                // return View(vm);
+                return View(new ProjectViewModel
+                {
+                    AvailableTechnologyTags = _repott.GetAllTechnologyTags()
+                });
             }
             else
             {
                 ViewData["ButtonTitle"] = "Update the project";
-                var project = _repo.GetProject((int) id);
-                // return View(new ProjectViewModel
-                // {
-                //     Id = project.Id,
-                //     Title = project.Title,
-                //     Summary = project.Summary,
-                //     Body = project.Body,
-                //     CurrentImage = project.Image,
-                //     IsCommercial = project.IsCommercial,
-                //     IsWebProject = project.IsWebProject
-                //  });              
-                    vm.Id = project.Id;
-                    vm.Title = project.Title;
-                    vm.Summary = project.Summary;
-                    vm.Body = project.Body;
-                    vm.CurrentImage = project.Image;
-                    vm.IsCommercial = project.IsCommercial;
-                    vm.IsWebProject = project.IsWebProject;
-                 return View (vm);
+                var project = _projectRepo.GetProject((int) id);
+                var selectedTechnologyTags = _projectRepo.GetAssociatedTechnologyTags((int) id);
+                var availableTechnologyTags = _repott.GetAllTechnologyTags();
+
+                foreach (var tag in selectedTechnologyTags)
+                {
+                    var change = availableTechnologyTags.Single(x => x.Id == tag.TechnologyTagID);
+                    change.Selected = true;
+                }
+                return View(new ProjectViewModel
+                {
+                    Id = project.Id,
+                    Title = project.Title,
+                    Summary = project.Summary,
+                    Body = project.Body,
+                    CurrentImage = project.Image,
+                    IsCommercial = project.IsCommercial,
+                    IsWebProject = project.IsWebProject,
+                    AvailableTechnologyTags = availableTechnologyTags
+                });
             }
         }
 
@@ -102,28 +108,36 @@ namespace PortfolioWeb.Controllers
                 }
                 project.Image = await _fileManager.SaveImage(vm.Image);
             }
+            
+            var aaa = _repoptt.GetAllPTT();
+            foreach (var tag in vm.AvailableTechnologyTags)
+            {
+                var bbb = new ProjectTechnologyTag
+                {
+                    ProjectID = vm.Id, 
+                    TechnologyTagID = tag.Id
+                };
+                if (aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == false)
+                {
+                    _repoptt.RemovePTT(bbb.ProjectID, bbb.TechnologyTagID);
+                    await _repo.SaveChangesAsync();
+                }
+                else if (!aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == true)
+                {
+                    _repoptt.AddPTT(bbb);
+                    await _repo.SaveChangesAsync();
+                }
+            }
 
             if (project.Id > 0)
             {
-                _repo.UpdateProject(project);
+                _projectRepo.UpdateProject(project);
             }
             else
             {
-                _repo.AddProject(project);
+                _projectRepo.AddProject(project);
             }
 
-            var aaa = new List<ProjectTechnologyTag>();
-            foreach (var item in vm.AvailableTechnologyTags)
-            {
-                if (item.Selected == true)
-                {
-                    _repoptt.AddPTT(new ProjectTechnologyTag()
-                    {
-                        ProjectID = vm.Id,
-                        TechnologyTagID = item.Id
-                    });
-                }
-            }
             
             if (await _repo.SaveChangesAsync())
             {
@@ -139,7 +153,7 @@ namespace PortfolioWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
         { 
-            _repo.RemoveProject(id);
+            _projectRepo.RemoveProject(id);
             await _repo.SaveChangesAsync();
             return RedirectToAction("Index");
         } 

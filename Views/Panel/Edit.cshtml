@@ -6,6 +6,7 @@
 
 @section styles {
     <link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" />
+    <!-- <link href="~/lib/quill/dist/quill.snow.css" rel="stylesheet" /> -->
 }
 
 <div class="row justify-content-center mt-5">
@@ -84,4 +85,14 @@
     <script>
         $('#editor').trumbowyg();
     </script>
+    <!-- <script src="~/lib/quill/dist/quill.min.js"></script>
+    <script>
+        var quill = new Quill('#editor-container', {
+            theme: 'snow'
+        });
+
+        $('#projectForm').on('submit',function(){
+            $('#hiddenArea').val($('#editor-container').html());
+        })
+    </script> -->
 }

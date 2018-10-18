@@ -13,20 +13,22 @@ namespace PortfolioWeb.Controllers
     [Authorize(Roles = "Admin")]
     public class TagsController : Controller
     {
-        private ITechnologyTagRepository _repo;
+        private IRepository _repo;
+        private ITechnologyTagRepository _technologyTagRepo;
         private IProjectRepository _repoPP;
         private AppDbContext _context;
 
-        public TagsController(ITechnologyTagRepository repo, IProjectRepository repoPP, AppDbContext context)
+        public TagsController(IRepository repo, ITechnologyTagRepository technologyTagRepo, IProjectRepository repoPP, AppDbContext context)
         {
             _repo = repo;
+            _technologyTagRepo = technologyTagRepo;
             _repoPP = repoPP;
             _context = context;
         }
 
         public IActionResult Index()
         {
-            var technologyTags = _repo.GetAllTechnologyTags();
+            var technologyTags = _technologyTagRepo.GetAllTechnologyTags();
             return View(technologyTags);
         }
 
@@ -43,7 +45,7 @@ namespace PortfolioWeb.Controllers
             {
                 ViewData["Title"] = "Update the Technology Tag";
                 ViewData["ButtonTitle"] = "Update";
-                var technologyTag = _repo.GetTechnologyTag((int) id);
+                var technologyTag = _technologyTagRepo.GetTechnologyTag((int) id);
                 return View(new TechnologyTagViewModel
                 {
                     Id = technologyTag.Id,
@@ -67,11 +69,11 @@ namespace PortfolioWeb.Controllers
 
                 if (technologyTag.Id > 0)
                 {
-                    _repo.UpdateTechnologyTag(technologyTag);
+                    _technologyTagRepo.UpdateTechnologyTag(technologyTag);
                 }
                 else
                 {
-                    _repo.AddTechnologyTag(technologyTag);
+                    _technologyTagRepo.AddTechnologyTag(technologyTag);
                 }
 
                 if (await _repo.SaveChangesAsync())
@@ -92,15 +94,15 @@ namespace PortfolioWeb.Controllers
         [HttpGet]
         public async Task<IActionResult> Remove(int id)
         { 
-            _repo.RemoveTechnologyTag(id);
+            _technologyTagRepo.RemoveTechnologyTag(id);
             await _repo.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
         public IActionResult ViewTag(int id)
         {
-            var associatedProjects = _repo.GetAssociatedProjects(id);
-            var technologyTag = _repo.GetTechnologyTag(id);
+            var associatedProjects = _technologyTagRepo.GetAssociatedProjects(id);
+            var technologyTag = _technologyTagRepo.GetTechnologyTag(id);
             return View(new ViewTagViewModel
             {
                 AssociatedProjects = associatedProjects,
@@ -111,7 +113,7 @@ namespace PortfolioWeb.Controllers
         [HttpGet]
         public IActionResult AddAssociatedProject(int id)
         {
-            var technologyTag = _repo.GetTechnologyTag(id);
+            var technologyTag = _technologyTagRepo.GetTechnologyTag(id);
             var projects = _repoPP.GetAllProjects();
             return View(new AddAssociatedProjectViewModel(technologyTag, projects));
         }

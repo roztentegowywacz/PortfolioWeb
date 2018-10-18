@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PortfolioWeb.Models;
 
 namespace PortfolioWeb.Data.Repository
@@ -12,18 +15,24 @@ namespace PortfolioWeb.Data.Repository
             _ctx = ctx;
         }
 
+        public List<ProjectTechnologyTag> GetAllPTT()
+        {
+            return _ctx.ProjectTechnologyTags.ToList();
+        }
+
         public void AddPTT(ProjectTechnologyTag projectTechnologyTag)
         {
             _ctx.ProjectTechnologyTags.Add(projectTechnologyTag);
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public ProjectTechnologyTag GetPTT(int projectId, int tagId)
         {
-            if (await _ctx.SaveChangesAsync() > 0)
-            {
-                return true;
-            }
-            return false;
+            return _ctx.ProjectTechnologyTags.FirstOrDefault(x => x.ProjectID == projectId && x.TechnologyTagID == tagId);
+        }
+
+        public void RemovePTT(int projectId, int tagId)
+        {
+            _ctx.ProjectTechnologyTags.Remove(GetPTT(projectId, tagId));
         }
     }
 }
