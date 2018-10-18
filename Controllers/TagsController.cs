@@ -112,18 +112,18 @@ namespace PortfolioWeb.Controllers
         public IActionResult AddAssociatedProject(int id)
         {
             var technologyTag = _repo.GetTechnologyTag(id);
-            var portfolioProjects = _repoPP.GetAllProjects();
-            return View(new AddAssociatedProjectViewModel(technologyTag, portfolioProjects));
+            var projects = _repoPP.GetAllProjects();
+            return View(new AddAssociatedProjectViewModel(technologyTag, projects));
         }
 
         [HttpPost]
         public IActionResult AddAssociatedProject(AddAssociatedProjectViewModel vm)
         {
-            var portfolioProjectId = vm.ProjectId;
+            var projectId = vm.ProjectId;
             var technologyTagId = vm.TechnologyTagId;
 
             List<ProjectTechnologyTag> existingItems = _context.ProjectTechnologyTags
-                .Where(x => x.ProjectID == portfolioProjectId)
+                .Where(x => x.ProjectID == projectId)
                 .Where(x => x.TechnologyTagID == technologyTagId)
                 .ToList();
             
@@ -131,7 +131,7 @@ namespace PortfolioWeb.Controllers
             {
                 ProjectTechnologyTag tagItem = new ProjectTechnologyTag
                 {
-                    Project = _context.Projects.Single(x => x.Id == portfolioProjectId),
+                    Project = _context.Projects.Single(x => x.Id == projectId),
                     TechnologyTag = _context.TechnologyTags.Single(x => x.Id == technologyTagId)
                 };
 

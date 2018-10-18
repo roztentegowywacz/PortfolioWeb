@@ -49,6 +49,7 @@ namespace PortfolioWeb
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<ITechnologyTagRepository, TechnologyRepository>();
             services.AddTransient<IFileManager, FileManager>();
+            services.AddTransient<IPTTRepository, PTTRepository>();
             
             services.AddMvc();
         }

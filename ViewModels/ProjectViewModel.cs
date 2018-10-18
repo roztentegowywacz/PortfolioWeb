@@ -19,7 +19,9 @@ namespace PortfolioWeb.ViewModels
         public bool IsCommercial { get; set; } = false;
         public bool IsWebProject { get; set; } = true;
 
-        // public List<ProjectTechnologyTag> AssociatedTechnologyTags { get; set; }
+        // public List<CheckBoxItem> AvailableTechnologyTags { get; set; }
+
+        public List<TechnologyTag> AvailableTechnologyTags { get; set; }
 
         public DateTime Created { get; set; }
     }
