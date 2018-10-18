@@ -31,4 +31,4 @@ msbuild.err
 msbuild.wrn
 
 # Image dynamic content
-/wwwroot/content/portfolio/*
+wwwroot/content/portfolio/*
