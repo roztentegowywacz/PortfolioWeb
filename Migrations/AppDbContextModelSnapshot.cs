@@ -180,6 +180,8 @@ namespace PortfolioWeb.Migrations
 
                     b.Property<string>("Body");
 
+                    b.Property<string>("BodyDeltaFormat");
+
                     b.Property<DateTime>("Created");
 
                     b.Property<string>("Image");

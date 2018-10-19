@@ -6,6 +6,7 @@
 
 @section styles {
     <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+    <link rel="stylesheet" href="~/lib/highlightjs/dist/styles/atom-one-dark.css">
 }
 
 <div class="container">
@@ -35,32 +36,25 @@
     </div>
     
     <div class="row mb-5">
-    <div class="col-12 mb-3">
-        <h1>
-            @Model.Title
-        </h1>
-    </div>
-    <div class="col-12 mb-4">
-        <span>
-            Posted at @Model.Created
-        </span>
-    </div>
-    <div class="col-12 project__tags-lg">
-        @if (Model.ProjectTechnologyTags != null)
-        {
-            foreach (var tag in Model.ProjectTechnologyTags)
+        <div class="col-12 mb-3">
+            <h1>
+                @Model.Title
+            </h1>
+        </div>
+        <div class="col-12 mb-4">
+            <span>
+                Posted at @Model.Created
+            </span>
+        </div>
+        <div class="col-12 project__tags-lg">
+            @if (Model.ProjectTechnologyTags != null)
             {
-                <i class="@tag.TechnologyTag.CssClassName"></i>
+                foreach (var tag in Model.ProjectTechnologyTags)
+                {
+                    <i class="@tag.TechnologyTag.CssClassName"></i>
+                }
             }
-        }
-    </div>
-        <!-- <div class="col-12 project__tags-lg">
-            <i class="fab fa-html5"></i>
-            <i class="fab fa-css3"></i>
-            <i class="fab fa-js"></i>
-            <i class="fab fa-sass"></i>
-            <i class="fab fa-gulp"></i>
-        </div> -->
+        </div>
     </div>
     
     <div class="row mb-4">
@@ -74,22 +68,35 @@
             {
                 <img src="~/content/static/img360.png" alt="Project demo image">
             }
-        </div> <!-- /.col-md-5 #block2__photo -->
+        </div>
         <div class="col-md-7 col-lg-8 order-lg-1 offset__right">
         
             <div id="block2__text__separator"></div>            
             <p>
                 @Model.Summary
             </p>
-        </div> <!-- /.col-md-7 -->
-        </div> <!-- /.row -->
+        </div>
+    </div>
         
-        <div class="row mb-5">
-        <div class="col-12">       
-            <p>
-                @Html.Raw(@Model.Body)
-            </p>
-
-        </div> <!-- /.col-md-7 -->
-    </div> <!-- /.row -->
+    <div class="row mb-5">
+        <input id="note" type="hidden" value='@Html.Raw(@Model.Body)'>
+        <div class="col-12" >
+            <p id="notehtml"></p>
+        </div>
+    </div>
 </div>
+
+@section scripts {
+    <script src="~/lib/highlightjs/dist/highlight.pack.js"></script>
+    <script src="~/lib/quill/dist/quill.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        $(document).ready(function(){
+            var tempCont = document.createElement("div");
+            var quill = new Quill(tempCont);
+            quill.setContents(JSON.parse($('#note').val()));
+            var d1 = document.getElementById('notehtml');
+            d1.insertAdjacentHTML('afterend', quill.root.innerHTML);
+        });
+    </script>
+}
