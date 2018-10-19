@@ -109,26 +109,6 @@ namespace PortfolioWeb.Controllers
                 project.Image = await _fileManager.SaveImage(vm.Image);
             }
             
-            var aaa = _repoptt.GetAllPTT();
-            foreach (var tag in vm.AvailableTechnologyTags)
-            {
-                var bbb = new ProjectTechnologyTag
-                {
-                    ProjectID = vm.Id, 
-                    TechnologyTagID = tag.Id
-                };
-                if (aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == false)
-                {
-                    _repoptt.RemovePTT(bbb.ProjectID, bbb.TechnologyTagID);
-                    await _repo.SaveChangesAsync();
-                }
-                else if (!aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == true)
-                {
-                    _repoptt.AddPTT(bbb);
-                    await _repo.SaveChangesAsync();
-                }
-            }
-
             if (project.Id > 0)
             {
                 _projectRepo.UpdateProject(project);
@@ -138,11 +118,27 @@ namespace PortfolioWeb.Controllers
                 _projectRepo.AddProject(project);
             }
 
+            var aaa = _repoptt.GetAllPTT();
+            foreach (var tag in vm.AvailableTechnologyTags)
+            {
+                var bbb = new ProjectTechnologyTag
+                {
+                    ProjectID = project.Id, 
+                    TechnologyTagID = tag.Id
+                };
+                if (aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == false)
+                {
+                    _repoptt.RemovePTT(bbb.ProjectID, bbb.TechnologyTagID);
+                }
+                else if (!aaa.Any(x => x.ProjectID == bbb.ProjectID && x.TechnologyTagID == bbb.TechnologyTagID) && tag.Selected == true)
+                {
+                    _repoptt.AddPTT(bbb);
+                }
+            }
             
             if (await _repo.SaveChangesAsync())
             {
                 return Redirect($"/Portfolio/Project/{project.Id}");
-                // return RedirectToAction("Index");
             }
             else
             {
