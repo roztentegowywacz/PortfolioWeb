@@ -16,7 +16,7 @@
         
             <div class="card-body">
                 <form id="projectForm" asp-controller="Panel" asp-action="Edit" method="POST" enctype="multipart/form-data">
-                    <input asp-for="Id" type="hidden" />
+                    <input asp-for="Id" type="hidden" id="hiddenAreaId"/>
                     <div class="form-group">
                         <label asp-for="Title"></label>
                         <input asp-for="Title" placeholder="Project title." type="text" class="form-control" />
@@ -29,7 +29,7 @@
                         <!-- <label asp-for="Body"></label>
                         <textarea asp-for="Body" placeholder="A description about the project." id="editor" class="form-control"></textarea> -->
                         <label asp-for="Body"></label>
-                        <input asp-for="Body" id="hiddenArea" type="hidden" />
+                        <input asp-for="Body" id="hiddenAreaBody" type="hidden" />
                         <div id="editor-container"></div>
                     </div>
                     <div class="form-group my-4">
@@ -87,18 +87,20 @@
     </script> -->
     <script src="~/lib/quill/dist/quill.min.js"></script>
     <script>
-        var quill = new Quill('#editor-container', {
-            theme: 'snow'
+        $(document).ready(function(){
+            var quill = new Quill('#editor-container', {
+                theme: 'snow'
+            });
+
+            if ($('#hiddenAreaId').val() > 0)
+            {
+                var con = $('#hiddenAreaBody').val();
+                quill.updateContents(JSON.parse(con));
+            }
+            
+            $('#projectForm').on('submit',function(){
+                $('#hiddenAreaBody').val(JSON.stringify(quill.getContents()));
+            });
         });
-
-        <!-- quill.setContents(JSON.parse($('#hiddenArea').val())); -->
-        var con = $('#hiddenArea').val();
-        quill.setContents(JSON.parse(con));
-
-        $('#projectForm').on('submit',function(){
-            $('#hiddenArea').val(JSON.stringify(quill.getContents()));
-        });
-
-
     </script>
 }

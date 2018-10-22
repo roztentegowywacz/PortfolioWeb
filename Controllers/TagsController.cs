@@ -109,39 +109,5 @@ namespace PortfolioWeb.Controllers
                 TechnologyTag = technologyTag
             });
         }
-
-        [HttpGet]
-        public IActionResult AddAssociatedProject(int id)
-        {
-            var technologyTag = _technologyTagRepo.GetTechnologyTag(id);
-            var projects = _repoPP.GetAllProjects();
-            return View(new AddAssociatedProjectViewModel(technologyTag, projects));
-        }
-
-        [HttpPost]
-        public IActionResult AddAssociatedProject(AddAssociatedProjectViewModel vm)
-        {
-            var projectId = vm.ProjectId;
-            var technologyTagId = vm.TechnologyTagId;
-
-            List<ProjectTechnologyTag> existingItems = _context.ProjectTechnologyTags
-                .Where(x => x.ProjectID == projectId)
-                .Where(x => x.TechnologyTagID == technologyTagId)
-                .ToList();
-            
-            if (existingItems.Count == 0)
-            {
-                ProjectTechnologyTag tagItem = new ProjectTechnologyTag
-                {
-                    Project = _context.Projects.Single(x => x.Id == projectId),
-                    TechnologyTag = _context.TechnologyTags.Single(x => x.Id == technologyTagId)
-                };
-
-                _context.ProjectTechnologyTags.Add(tagItem);
-                _context.SaveChanges();
-            }
-
-            return Redirect(string.Format("/Tags/ViewTag/{0}", vm.TechnologyTagId));      
-        }
     }
 }
