@@ -7,6 +7,8 @@
 @section styles {
     <!-- <link href="~/lib/Trumbowyg-master/dist/ui/trumbowyg.min.css" rel="stylesheet" /> -->
     <link href="~/lib/quill/dist/quill.snow.css" rel="stylesheet" />
+    <!-- <link href="~/lib/highlightjs/dist/styles/atom-one-dark.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
 }
 
 <div class="row justify-content-center mt-5">
@@ -85,11 +87,24 @@
     <script>
         $('#editor').trumbowyg();
     </script> -->
+    <!-- <script src="~/lib/highlightjs/dist/highlight.pack.js"></script> -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="~/lib/quill/dist/quill.min.js"></script>
     <script>
         $(document).ready(function(){
+
             var quill = new Quill('#editor-container', {
-                theme: 'snow'
+                theme: 'snow',
+                modules: {
+                    toolbar: [
+                        [{ header: [1, 2, false] }],
+                        ['bold', 'italic', 'underline'],
+                        ['image', 'code-block']
+                    ],
+                    syntax: {
+                        highlight: text => hljs.highlightAuto(text).value
+                    }
+                }
             });
 
             if ($('#hiddenAreaId').val() > 0)

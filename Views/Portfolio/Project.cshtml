@@ -6,7 +6,8 @@
 
 @section styles {
     <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
-    <link rel="stylesheet" href="~/lib/highlightjs/dist/styles/atom-one-dark.css">
+    <!-- <link rel="stylesheet" href="~/lib/highlightjs/dist/styles/atom-one-dark.css"> -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
 }
 
 <div class="container">
@@ -87,9 +88,9 @@
 </div>
 
 @section scripts {
-    <script src="~/lib/highlightjs/dist/highlight.pack.js"></script>
     <script src="~/lib/quill/dist/quill.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    
     <script>
         $(document).ready(function(){
             var tempCont = document.createElement("div");
@@ -97,6 +98,10 @@
             quill.setContents(JSON.parse($('#note').val()));
             var d1 = document.getElementById('notehtml');
             d1.insertAdjacentHTML('afterend', quill.root.innerHTML);
+
+            $('pre').each(function(i, block) {
+                hljs.highlightBlock(block);
+            });
         });
     </script>
 }
