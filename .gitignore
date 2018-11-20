@@ -32,3 +32,6 @@ msbuild.wrn
 
 # Image dynamic content
 wwwroot/content/portfolio/*
+
+# Program.cs because of secret admin data
+Program.cs
